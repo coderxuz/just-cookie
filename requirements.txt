@@ -1,0 +1,7 @@
+fastapi
+pydantic
+sqlalchemy
+psycopg2
+uvicorn
+jinja2
+fastapi-jwt-auth

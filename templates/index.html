@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple User Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter username">
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="login()">Login</button>
+    <div class="message" id="message"></div>
+</div>
+<script>
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const messageDiv = document.getElementById('message');
+    
+        // Foydalanuvchi kiritmalarini JSON formatida tayyorlash
+        const data = {
+            username: username,
+            password: password
+        };
+    
+        // POST so'rovini yuborish
+        fetch('http://192.168.1.8:8005/login', {  // o'z server URL'ini yozing
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // JSON formatida so'rov yuboriladi
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                messageDiv.style.color = 'green';
+                messageDiv.textContent = 'Login successful!';
+                // Bu yerda sahifa o'zgartirish yoki boshqa amallarni bajarish mumkin
+                // window.location.href = 'home.html';
+            } else {
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'Invalid username or password';
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            messageDiv.textContent = 'An error occurred. Please try again later.';
+        });
+    }
+</script>
+</body>
+</html>
