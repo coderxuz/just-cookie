@@ -15,7 +15,7 @@ templates = Jinja2Templates(directory='templates')
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173","https://just-test-eg0s.onrender.com/"],  # Lokal server uchun domen
+    allow_origins=["https://just-test-eg0s.onrender.com"],  # Lokal server uchun domen
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
